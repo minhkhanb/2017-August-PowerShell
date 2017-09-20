@@ -1,0 +1,46 @@
+To get available command for remoting
+Get-Command | where { $_.parameters.keys -contains "ComputerName" -and $_.parameters.keys -notcontains "Session"}
+
+##################################################
+To enable remoting
+
+Enable-PSRemoting
+
+
+###################################################
+To check available remoting
+
+New-PSSession
+
+
+##################################################
+To restart remote computer
+
+Restart-Computer -ComputerName sv-node1 -Credential sv-node1\Administrator -Force
+
+
+###################################################
+To set TrustedHosts
+
+Set-Item -Path WSMan:\localhost\Client\TrustedHosts -Value "sv-node1"
+
+#####################################################
+To start a interactive session (with credential)
+
+Enter-PSSession sv-node1 -Credential sv-node1\Administrator
+
+#####################################################
+To exit a interactive session (with credentials)
+
+Exit-PSSession
+
+#####################################################
+To run script  in remote client
+
+Invoke-Command -FilePath 'C:\Data Temp\PowerShell\task_awesome.ps1' -ComputerName sv-node1 -Credential sv-no
+de1\Administrator
+
+######################################################
+To run script block in remote client
+
+Invoke-Command -ComputerName sv-node1 -Credential sv-node1\Administrator -ScriptBlock {mkdir c:\dev_test_second}
